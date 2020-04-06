@@ -5,14 +5,16 @@ class HelloWorld
   def call(env)
     case env['REQUEST_PATH']
     when '/'
-      ['200', {"Content-Type" => 'text/plain'}, ["Hello World!"]]
+      template = File.read("views/index.erb")
+      content = ERB.new(template)
+      ['200', {"Content-Type" => 'text/html'}, ["Hello World!"]]
     when '/advice'
       piece_of_advice = Advice.new.generate
-      ['200', {'Content-Type' => 'text/plain'}, [piece_of_advice]]
+      ['200', {'Content-Type' => 'text/html'}, [piece_of_advice]]
     else
       [
         '404',
-        {"Content-Type" => 'text/plain', "Cntent-Length" => '13'},
+        {"Content-Type" => 'text/html', "Content-Length" => '48'},
         ["404 Not Found"]
       ]
     end
