@@ -6,7 +6,7 @@ class App < Monroe
   def call(env)
     case env['REQUEST_PATH']
     when '/'
-      status = '200',
+      status = '200'
       headers = {"Content-Type" => 'text/html'}
       response(status, headers) do
         erb :index
